@@ -61,12 +61,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return {
         paths: [],
         fallback: 'blocking'
-    }
+    } // Dia 4 - se for mais de 50 págs, usa o métódo de colocar só as 50 mais usadas estáticas e as outras pra carregar depois
 
 }
 export const getStaticProps: GetStaticProps = async (ctx) => {
     const { slug } = ctx.params;
     const { data } = await api.get(`/episodes/${slug}`)
+    //Estranho, dia 4 tá assim
+    /* const { data } = await api.get('episodes') {
+         params: {
+             _limit: 2,
+             _sort: 'published_at',
+             _order: 'desc'
+         }
+     })*/
 
     const episode = {
         id: data.id,
